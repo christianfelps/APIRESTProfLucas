@@ -1,4 +1,4 @@
-import  {server}  from "./server/server";
+import  {server}  from "./Server";
 
 server.listen(process.env.PORT || 3333, () => console.log(`server na url http://localhost:${process.env.PORT || 3333}`));
 
