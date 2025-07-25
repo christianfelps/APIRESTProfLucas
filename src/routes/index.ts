@@ -7,11 +7,9 @@ router.get('/', (req, res) => {
   return res.status(StatusCodes.CONFLICT).send("Ola mundo");
 });
 
-router.post('/cidades',
-   cidadesController.createValidation,
-    cidadesController.create );
+router.post('/cidades', cidadesController.createValidation, cidadesController.create );
+router.get('/cidades', cidadesController.getAllValidation, cidadesController.getAll );
     
-router.get('/', cidadesController.create );
 
 
 export default router;

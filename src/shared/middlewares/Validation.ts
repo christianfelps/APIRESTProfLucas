@@ -1,12 +1,12 @@
 import { RequestHandler } from "express"
+import { ValidationError, ObjectSchema, Maybe, AnyObject, } from "yup";
 import { StatusCodes } from "http-status-codes";
-import { Schema, ValidationError, ObjectSchema, Maybe, AnyObject, } from "yup";
 
 type TProperty = "body" | "header" | "params" | "query";
 
 type TGetSchema = <T extends Maybe<AnyObject>>(schema: ObjectSchema<T>) => ObjectSchema<T>;
 
-type TAllSchemas = Record<TProperty, Schema<any>>;
+type TAllSchemas = Record<TProperty, ObjectSchema<any>>;
 
 type TGetAllSchemas = (getSchema: TGetSchema) => Partial<TAllSchemas>;
 
