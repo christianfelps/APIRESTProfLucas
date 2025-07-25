@@ -7,7 +7,10 @@ router.get('/', (req, res) => {
   return res.status(StatusCodes.CONFLICT).send("Ola mundo");
 });
 
-router.post('/cidades', cidadesController.createBodyValidator, cidadesController.create );
+router.post('/cidades',
+   cidadesController.createValidation,
+    cidadesController.create );
+    
 router.get('/', cidadesController.create );
 
 
