@@ -1,4 +1,13 @@
 import supertest from "supertest";
 import { server } from "../src/Server";
+import { Knex } from "../src/database/knex";
 
-export const testServer = supertest(server)
+beforeAll( async () =>{
+    await Knex.migrate.latest();
+});
+
+afterAll( async () => {
+    await Knex.destroy();
+})
+
+export const testServer = supertest(server);

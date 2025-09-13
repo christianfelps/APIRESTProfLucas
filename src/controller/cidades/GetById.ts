@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
+import { cidadesProvider } from "../../database/providers/cidades";
 
 interface IParamProps {
 id?: number
@@ -20,13 +21,12 @@ export const getByIdValidation = validation((getSchema) => ({
 
 
 export const getById = async (req: Request<IParamProps>, res: Response) => {
-if(Number(req.params.id) === 99999 ) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-  errors: {
-      default: "Registro não encontrado"
-  }
-})
+
+const id = Number(req.params.id);
+
+const result = await cidadesProvider.getById(id);
+
 return res.status(StatusCodes.OK).json({
-  id: req.params.id,
-  nome: 'Mogi das Cruzes'
+  result
 })
 };

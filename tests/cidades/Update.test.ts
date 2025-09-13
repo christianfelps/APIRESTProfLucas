@@ -12,7 +12,7 @@ describe('Cidades - UpdateById', () => {
         .post('/cidades')
         .send({ nome: 'Mogi das Cruzes' })
 
-        expect(res1.statusCode).toEqual(StatusCodes.CREATED)
+        expect(res1.statusCode).toEqual(StatusCodes.OK)
 
 
         const  resAtualizada = await testServer

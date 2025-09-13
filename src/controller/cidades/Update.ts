@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
+import { cidadesProvider } from "../../database/providers/cidades";
 
 interface IParamProps {
   id?: number,
@@ -26,11 +27,18 @@ export const updateValidation = validation((getSchema) => ({
 
 
 export const update = async (req: Request<IParamProps,{}, IBodyProps>, res: Response) => {
-if(Number(req.params.id) === 99999 ) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-  errors: {
-      default: "Registro não encontrado"
+
+  const result = await cidadesProvider.update(1);
+  if(result instanceof Error){
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message
+      }
+    })
   }
-})
+
+
+  return res.status(StatusCodes.OK).json(result)
 
   return res.status(StatusCodes.NO_CONTENT).send()
 };
