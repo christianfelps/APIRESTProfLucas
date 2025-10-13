@@ -1,4 +1,4 @@
-export interface ICidade {
+export interface Cidade {
   id: number;
   nome: string;
 }

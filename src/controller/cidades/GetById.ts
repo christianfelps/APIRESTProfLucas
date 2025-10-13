@@ -23,10 +23,24 @@ export const getByIdValidation = validation((getSchema) => ({
 export const getById = async (req: Request<IParamProps>, res: Response) => {
 
 const id = Number(req.params.id);
+ if (!id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: `O parâmetro "id" precisa ser informado."`
+      }
+    });
+  }
 
 const result = await cidadesProvider.getById(id);
 
-return res.status(StatusCodes.OK).json({
-  result
-})
+  if(result instanceof Error){
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message
+      }
+    });
+  }
+
+
+return res.status(StatusCodes.OK).json(result)
 };

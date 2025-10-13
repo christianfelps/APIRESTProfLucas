@@ -27,18 +27,30 @@ export const updateValidation = validation((getSchema) => ({
 
 
 export const update = async (req: Request<IParamProps,{}, IBodyProps>, res: Response) => {
+  const newNome: IBodyProps = req.body;
+  const id = Number(req.params.id);
 
-  const result = await cidadesProvider.update(1);
+
+  if(!id){
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: `O parâmetro "id" precisa ser informado."`
+      }
+    });
+  }
+
+  
+
+  const result = await cidadesProvider.update(id, newNome);
   if(result instanceof Error){
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
         default: result.message
       }
-    })
+    });
   }
 
 
-  return res.status(StatusCodes.OK).json(result)
+  return res.status(StatusCodes.OK).json(result);
 
-  return res.status(StatusCodes.NO_CONTENT).send()
 };

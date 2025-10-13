@@ -18,7 +18,7 @@ describe('Cidades - UpdateById', () => {
         const  resAtualizada = await testServer
 
         .put(`/cidades/${res1.body}`)
-        .send({ nome: 'Mogi' })
+        .send({ nome: 'Mogi' });
 
         expect(resAtualizada.statusCode).toEqual(StatusCodes.NO_CONTENT)
     })

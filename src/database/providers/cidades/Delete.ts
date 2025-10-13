@@ -1,0 +1,20 @@
+import {Knex}  from '../../knex';;
+import { ETableNames } from "../../ETableNames"
+
+
+export const deleteById = async (id: number): Promise<void | Error> => {
+try {
+    const result = await Knex(ETableNames.cidade)
+    .where('id', '=',` ${id}`)
+    .delete();
+ // result ira retornar 0 ou 1 0 = false e 1 = true
+    if(result > 0) return;
+
+    return new Error("Erro ao apagar registro");
+    
+} catch (error) {
+    console.log(error)
+    return new Error("Erro ao apagar registro");
+
+}
+};
